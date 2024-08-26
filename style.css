@@ -1,9 +1,9 @@
 body {
-    background-color: rgb(16, 16, 16);
+    background-color: #282828;
 }
 
 h1 {
-    color: aliceblue;
+    color: #FF6F61;
     font-size: 8vh;
     font-family: "Graduate", serif;
     font-weight: 400;
@@ -22,7 +22,7 @@ h1 {
     font-family: "Graduate", serif;
     font-weight: 400;
     font-style: normal;  
-    color: aliceblue;
+    color: #FFCE00;
     font-size: 3vh;
     width: 80vh;
     display: flex;
@@ -32,28 +32,30 @@ h1 {
 }
 
 .board {
+    background-color: #000000;
     gap: 5px;
     height: 60vh;
     width: 60vh;
-    background-color: rgb(16, 16, 16);
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
     grid-template-rows: repeat(4, 1fr);
+    padding:10px;
+    border-radius: 10px;
 }
 
 .cell {
-    background-color: rgb(68, 195, 193); 
+    background-color: #FF6F61; 
+    color: #000000; 
     border: 1px solid #000; 
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 3vh;
-    color: rgb(0, 0, 0);
 }
 
 .void {
-    background-color: rgb(16, 16, 16);
+    background-color: #474747; 
     border: 1px solid #000; 
     border-radius: 10px;
 }
@@ -69,8 +71,8 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
+    background-color: rgba(44, 44, 44, 0.9);
+    color: #FFCE00;
     padding: 20px;
     font-size: 24px;
     border-radius: 10px;
