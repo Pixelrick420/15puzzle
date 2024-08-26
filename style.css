@@ -7,7 +7,8 @@ h1 {
     font-size: 8vh;
     font-family: "Graduate", serif;
     font-weight: 400;
-    font-style: normal;     
+    font-style: normal; 
+    margin-bottom: 0;    
 }
 
 .content {
@@ -15,7 +16,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5vh;
+    gap: 3vh;
 }
 
 .stats {
@@ -80,9 +81,11 @@ h1 {
     visibility: hidden;
     font-family: 'Graduate', sans-serif;
     align-items: center;
-  }
-  
+}
 
+.slider-container{
+    color:#FF6F61;
+}
 
 @media (max-width: 600px) {
     .gameover {

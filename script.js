@@ -9,6 +9,7 @@ let movecount = 0;
 let timer;
 let starttime;
 let timerstarted = false;
+let gamewon = false;
 
 function init() {
     board.innerHTML = ''; 
@@ -126,27 +127,37 @@ function starttimer() {
     }, 10); 
 }
 
-
 function checkwin() {
-    if (array.every((num, index) => {
-        if (isNaN(num)) {
-            return isNaN(endstate[index]); 
+    const gameoverdiv = document.querySelector('.gameover');
+    if (!gamewon) {
+        if (array.every((num, index) => {
+            if (isNaN(num)) {
+                return isNaN(endstate[index]);
+            }
+            return num === endstate[index];
+        })) {
+            clearInterval(timer);
+            const finaltime = Math.floor((Date.now() - starttime) / 1000);
+            const minutes = Math.floor(finaltime / 60);
+            const seconds = finaltime % 60;
+            document.getElementById('finaltime').innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            gameoverdiv.style.zIndex = '1000';
+            gameoverdiv.style.visibility = 'visible';
+            gamewon = true;
         }
-        return num === endstate[index];
-    })){
-        clearInterval(timer);
-        const finalTime = Math.floor((Date.now() - starttime) / 1000);
-        const minutes = Math.floor(finalTime / 60);
-        const seconds = finalTime % 60;
-        document.getElementById('finaltime').innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-        const gameoverDiv = document.querySelector('.gameover');
-        gameoverDiv.style.zIndex = '1000';
-        gameoverDiv.style.visibility = 'visible';
-        return true;
+    } 
+    else{
+        gameoverdiv.style.zIndex = '-1';
+        gameoverdiv.style.visibility = 'hidden';
+        gamewon = false;
+        timerstarted = false;
+        movecount = 0;
+        timedisplay.innertext = 'Time: 0:00:00';
+        movescounter.innerText = `Moves: ${movecount}`;
+        shuffle(array);
+        init(); 
     }
-    return false;
 }
-
 
 shuffle(array);
 init();
