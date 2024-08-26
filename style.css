@@ -83,6 +83,10 @@ h1 {
     align-items: center;
 }
 
+.rotate-180{
+    transform: translate(-50%, -50%) rotate(180deg);
+}
+
 @media (max-width: 600px) {
     .gameover {
         top: 40%;

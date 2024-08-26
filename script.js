@@ -139,19 +139,31 @@ function checkwin() {
             clearInterval(timer);
             gameoverdiv.style.zIndex = '1000';
             gameoverdiv.style.visibility = 'visible';
+            gameoverdiv.classList.remove('rotate-180');
+            gamewon = true;
+        } else if (array.slice().reverse().every((num, index) => {
+            if (isNaN(num)) {
+                return isNaN(endstate[index]);
+            }
+            return num === endstate[index];
+        })) {
+            clearInterval(timer);
+            gameoverdiv.style.zIndex = '1000';
+            gameoverdiv.style.visibility = 'visible';
+            gameoverdiv.classList.add('rotate-180');
             gamewon = true;
         }
-    } 
-    else{
+    } else {
         gameoverdiv.style.zIndex = '-1';
         gameoverdiv.style.visibility = 'hidden';
+        gameoverdiv.classList.remove('rotate-180');
         gamewon = false;
         timerstarted = false;
         movecount = 0;
         timedisplay.innerText = 'Time: 0:00:00';
         movescounter.innerText = `Moves: ${movecount}`;
         shuffle(array);
-        init(); 
+        init();
     }
 }
 
