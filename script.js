@@ -137,11 +137,6 @@ function checkwin() {
             return num === endstate[index];
         })) {
             clearInterval(timer);
-            const finaltime = Math.floor((Date.now() - starttime) / 1000);
-            const minutes = Math.floor(finaltime / 60);
-            const seconds = finaltime % 60;
-            const milliseconds = Math.floor((finaltime % 1000) / 10);
-            document.getElementById('finaltime').innerText = `${minutes}:${seconds.toString().padStart(2, '0')}:${milliseconds.toString().padStart(2, '0')}`;
             gameoverdiv.style.zIndex = '1000';
             gameoverdiv.style.visibility = 'visible';
             gamewon = true;
@@ -153,7 +148,7 @@ function checkwin() {
         gamewon = false;
         timerstarted = false;
         movecount = 0;
-        timedisplay.innertext = 'Time: 0:00:00';
+        timedisplay.innerText = 'Time: 0:00:00';
         movescounter.innerText = `Moves: ${movecount}`;
         shuffle(array);
         init(); 
