@@ -15,7 +15,7 @@ A web-based implementation of the classic 15 Puzzle game, allowing users to play
 - **Inversion Counting**: Used to determine if the shuffled puzzle is solvable based on the number of inversions.
 - **Move Validation**: Ensures that tiles that are in the same row or column as the empty cell can be moved.
 
-## How to Use
+## How to
 
 1. **Clone the Repository**
    ```bash
