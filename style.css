@@ -1,9 +1,13 @@
+html{
+    overflow-x: hidden;
+}
+
 body {
     background-color: #282828;
 }
 
 h1 {
-    color: #0A74DA;
+    color: aliceblue;
     font-size: 8vh;
     font-family: "Graduate", serif;
     font-weight: 400;
@@ -87,7 +91,62 @@ h1 {
     transform: translate(-50%, -50%) rotate(180deg);
 }
 
+.sizeslider span{
+    font-family: 'Graduate', sans-serif;
+    align-items: center;
+    color:aliceblue;
+    font-size: 3vh;
+}
+
+.sizeslider{
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width:50vh;
+    gap:5px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 20vh;
+    height: 1vh;
+    background: #0A74DA;
+    outline: none;
+    border-radius: 5px;
+    margin: 2vh 0;
+}
+
+.slider::-webkit-slider-thumb {
+    border-color: #282828;
+    border-style: solid;
+    border-width: 2px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 4vh;
+    height: 4vh;
+    background: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+width: 3vh;
+height: 3vh;
+background: #ffffff;
+border-radius: 50%;
+cursor: pointer;
+}
+
 @media (max-width: 600px) {
+    .slider {
+        width: 40vh;
+    }
+
+    .slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
+        width: 2vh;
+        height: 2vh;
+    }
+
     .gameover {
         top: 40%;
         left: 50%;

@@ -1,10 +1,10 @@
 const board = document.getElementById('board');
-const message = document.getElementById('message');
+const gridsize = document.getElementById('gridsize');
 const movescounter = document.querySelector('.moves');
 const timedisplay = document.querySelector('.time');
 
-const endstate = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, NaN];
-let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, NaN];
+const endstate = Array.from({ length: 15 }, (_, i) => i + 1).concat(NaN);
+let array = [...endstate];
 let movecount = 0;
 let timer;
 let starttime;
@@ -13,6 +13,9 @@ let gamewon = false;
 
 function init() {
     board.innerHTML = ''; 
+    board.style.gridTemplateColumns = `repeat(${gridsize.value}, 1fr)`;
+    board.style.gridTemplateRows = `repeat(${gridsize.value}, 1fr)`;
+
     array.forEach((num, i) => {
         const cell = document.createElement('div');
         cell.classList.add('cell');
@@ -34,32 +37,33 @@ function handleclick(index) {
         timerstarted = true;
     }
     let emptyindex = array.findIndex(num => isNaN(num));
-    let row = Math.floor(index / 4);
-    let col = Math.floor(index % 4);
-    let emptyrow = Math.floor(emptyindex / 4);
-    let emptycol = emptyindex % 4;
+    let size = parseInt(gridsize.value);
+    let row = Math.floor(index / size);
+    let col = Math.floor(index % size);
+    let emptyrow = Math.floor(emptyindex / size);
+    let emptycol = emptyindex % size;
 
     if (row === emptyrow) {
         if (col < emptycol) {
             for (let i = emptycol; i > col; i--) {
-                [array[row * 4 + i], array[row * 4 + i - 1]] = [array[row * 4 + i - 1], array[row * 4 + i]];
+                [array[row * size + i], array[row * size + i - 1]] = [array[row * size + i - 1], array[row * size + i]];
             }
         } 
         else if (col > emptycol) {
             for (let i = emptycol; i < col; i++) {
-                [array[row * 4 + i], array[row * 4 + i + 1]] = [array[row * 4 + i + 1], array[row * 4 + i]];
+                [array[row * size + i], array[row * size + i + 1]] = [array[row * size + i + 1], array[row * size + i]];
             }
         }
     } 
     else if (col === emptycol) {
         if (row < emptyrow) {
             for (let i = emptyrow; i > row; i--) {
-                [array[i * 4 + col], array[(i - 1) * 4 + col]] = [array[(i - 1) * 4 + col], array[i * 4 + col]];
+                [array[i * size + col], array[(i - 1) * size + col]] = [array[(i - 1) * size + col], array[i * size + col]];
             }
         } 
         else if (row > emptyrow) {
             for (let i = emptyrow; i < row; i++) {
-                [array[i * 4 + col], array[(i + 1) * 4 + col]] = [array[(i + 1) * 4 + col], array[i * 4 + col]];
+                [array[i * size + col], array[(i + 1) * size + col]] = [array[(i + 1) * size + col], array[i * size + col]];
             }
         }
     }
@@ -70,7 +74,6 @@ function handleclick(index) {
     updateboard();
     checkwin();
 }
-
 
 function updateboard() {
     board.innerHTML = ''; 
@@ -104,8 +107,14 @@ function countinversions(arr) {
 function shuffle(array) {
     function issolvable(arr) {
         let inversions = countinversions(arr);
-        let emptyrow = Math.floor(array.findIndex(num => isNaN(num)) / 4) + 1; 
-        return (inversions + emptyrow) % 2 === 0;
+        let size = parseInt(gridsize.value);
+        
+        if (size % 2 !== 0) {
+            return inversions % 2 === 0;
+        } else {
+            let emptyrow = Math.floor(arr.findIndex(num => isNaN(num)) / size) + 1;
+            return (inversions + emptyrow) % 2 === 0;
+        }
     }
 
     do {
@@ -115,6 +124,7 @@ function shuffle(array) {
         }
     } while (!issolvable(array));
 }
+
 
 function starttimer() {
     starttime = Date.now();
@@ -129,12 +139,14 @@ function starttimer() {
 
 function checkwin() {
     const gameoverdiv = document.querySelector('.gameover');
+    let size = parseInt(gridsize.value);
+    let completedstate = Array.from({ length: size * size - 1 }, (_, i) => i + 1).concat(NaN);
     if (!gamewon) {
         if (array.every((num, index) => {
             if (isNaN(num)) {
-                return isNaN(endstate[index]);
+                return isNaN(completedstate[index]);
             }
-            return num === endstate[index];
+            return num === completedstate[index];
         })) {
             clearInterval(timer);
             gameoverdiv.style.zIndex = '1000';
@@ -143,9 +155,9 @@ function checkwin() {
             gamewon = true;
         } else if (array.slice().reverse().every((num, index) => {
             if (isNaN(num)) {
-                return isNaN(endstate[index]);
+                return isNaN(completedstate[index]);
             }
-            return num === endstate[index];
+            return num === completedstate[index];
         })) {
             clearInterval(timer);
             gameoverdiv.style.zIndex = '1000';
@@ -162,10 +174,23 @@ function checkwin() {
         movecount = 0;
         timedisplay.innerText = 'Time: 0:00:00';
         movescounter.innerText = `Moves: ${movecount}`;
+        array = Array.from({ length: size * size - 1 }, (_, i) => i + 1).concat(NaN);
         shuffle(array);
         init();
     }
 }
+
+gridsize.addEventListener('input', () => {
+    let size = parseInt(gridsize.value);
+    array = Array.from({ length: size * size - 1 }, (_, i) => i + 1).concat(NaN);
+    shuffle(array);
+    movecount = 0;
+    timedisplay.innerText = 'Time: 0:00:00';
+    movescounter.innerText = `Moves: ${movecount}`;
+    timerstarted = false;
+    gamewon = false;
+    init();
+});
 
 shuffle(array);
 init();
