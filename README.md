@@ -19,8 +19,7 @@ A web-based implementation of the classic 15 Puzzle game, allowing users to play
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/15-puzzle.git
-   cd 15-puzzle
+   git clone https://github.com/pixelrick420/15puzzle.git
    
 2. **Open the Game**
    - Go to [pixelrick420.github.io/15puzzle](https://pixelrick420.github.io/15puzzle/) in your web browser to start playing the game.
