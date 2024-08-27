@@ -184,11 +184,13 @@ gridsize.addEventListener('input', () => {
     let size = parseInt(gridsize.value);
     array = Array.from({ length: size * size - 1 }, (_, i) => i + 1).concat(NaN);
     shuffle(array);
+    gameoverdiv.style.zIndex = '-1';
+    gameoverdiv.style.visibility = 'hidden';
+    gameoverdiv.classList.remove('rotate-180');
+    gamewon = false;
+    timerstarted = false;
     movecount = 0;
     timedisplay.innerText = 'Time: 0:00:00';
-    movescounter.innerText = `Moves: ${movecount}`;
-    timerstarted = false;
-    gamewon = false;
     init();
 });
 
