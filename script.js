@@ -193,7 +193,9 @@ gridsize.addEventListener('input', () => {
     gamewon = false;
     timerstarted = false;
     movecount = 0;
+    clearInterval(timer);
     timedisplay.innerText = 'Time: 0:00:00';
+    movescounter.innerText = `Moves: ${movecount}`;
     init();
 });
 
