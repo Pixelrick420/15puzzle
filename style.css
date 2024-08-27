@@ -1,5 +1,9 @@
-html{
-    overflow-x: hidden;
+html, body {
+    overflow-x: hidden; 
+    margin: 0; /
+    padding: 0; 
+    width: 100vw; 
+    height: 100vh; 
 }
 
 body {
@@ -139,7 +143,7 @@ cursor: pointer;
 
 @media (max-width: 600px) {
     .slider {
-        width: 40vh;
+        width: 20vh;
     }
 
     .slider::-webkit-slider-thumb, .slider::-moz-range-thumb {

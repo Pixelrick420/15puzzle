@@ -181,7 +181,10 @@ function checkwin() {
 }
 
 gridsize.addEventListener('input', () => {
+    const title = document.querySelector('h1');
+    const gameoverdiv = document.querySelector('.gameover');
     let size = parseInt(gridsize.value);
+    title.innerText = `${size * size - 1} PUZZLE`
     array = Array.from({ length: size * size - 1 }, (_, i) => i + 1).concat(NaN);
     shuffle(array);
     gameoverdiv.style.zIndex = '-1';
